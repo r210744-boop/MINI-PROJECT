@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Resolved Complaints</title>
+</head>
+<body>
+
+  <h2>My Resolved Complaints</h2>
+
+  <button onclick="loadResolved()">Load Resolved Complaints</button>
+
+  <br><br>
+
+  <table border="1" id="table">
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Priority</th>
+      <th>Student</th>
+      <th>Status</th>
+      <th>Before Image</th>
+      <th>After Image</th>
+      
+    </tr>
+  </table>
+
+  <script>
+    function loadResolved() {
+
+      // 👉 Replace later with localStorage
+     // const workerId = "YOUR_WORKER_ID";
+      const userId = "69c7675dc60a3b17882eb1db";
+     
+
+      fetch(`http://localhost:5000/complaintsView/Resolved/${userId}`)
+        .then(res => res.json())
+        .then(data => {
+
+          const table = document.getElementById("table");
+
+          // Reset table
+          table.innerHTML = `
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Priority</th>
+              <th>Student</th>
+              <th>Status</th>
+              <th>Before Image</th>
+              <th>After Image</th>
+            </tr>
+          `;
+
+          data.forEach(c => {
+
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+              <td>${c.title}</td>
+              <td>${c.description}</td>
+              <td>${c.priority}</td>
+              <td>${c.student}</td>
+              <td>${c.status}</td>
+
+              <td>
+                ${
+                  c.image
+                  ? `<img src="http://localhost:5000/uploads/${c.image}" width="80"/>`
+                  : "No Image"
+                }
+              </td>
+
+              <td>
+                ${
+                  c.afterImage
+                  ? `<img src="http://localhost:5000/uploads/${c.afterImage}" width="80"/>`
+                  : "No After Image"
+                }
+              </td>
+            `;
+
+            table.appendChild(row);
+
+          });
+
+        })
+        .catch(err => {
+          console.log(err);
+          alert("Error loading data");
+        });
+    }
+  </script>
+
+</body>
+</html>

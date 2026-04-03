@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Update</title>
+</head>
+<body>
+
+  <h2>Admin Update Complaint</h2>
+
+  <form action="http://localhost:5000/updateComplaint" method="POST" enctype="multipart/form-data">
+
+    <input type="text" name="id" placeholder="Enter Complaint ID" required><br><br>
+
+    <input type="file" name="afterImage"><br><br>
+
+    <button type="submit">Update Complaint</button>
+
+  </form>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>student view  Pending Complaints</title>
+</head>
+<body>
+
+  <h2>My Pending Complaints</h2>
+
+  <!-- Button -->
+  <button onclick="loadComplaints()">Load Complaints</button>
+
+  <br><br>
+
+  <!-- Table -->
+  <table border="1" id="complaintsTable">
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Priority</th>
+      <th>Student</th>
+      <th>Status</th>
+      <th>Image</th>
+    </tr>
+  </table>
+
+  <script>
+    function loadComplaints() {
+
+      // 👉 Replace with localStorage later
+     // const workerId = "YOUR_WORKER_ID";
+     const userId = "69c7675dc60a3b17882eb1db";
+
+      fetch(`http://localhost:5000/complaintsView/${userId}`)
+        .then(res => res.json())
+        .then(data => {
+
+          const table = document.getElementById("complaintsTable");
+
+          // Reset table
+          table.innerHTML = `
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Priority</th>
+              <th>Student</th>
+              <th>Status</th>
+              <th>Image</th>
+            </tr>
+          `;
+
+          data.forEach(c => {
+
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+              <td>${c.title}</td>
+              <td>${c.description}</td>
+              <td>${c.priority}</td>
+              <td>${c.student}</td>
+              <td>${c.status}</td>
+
+              <td>
+                ${
+                  c.image 
+                  ? `<img src="http://localhost:5000/uploads/${c.image}" width="80"/>`
+                  : "No Image"
+                }
+              </td>
+            `;
+
+            table.appendChild(row);
+
+          });
+
+        })
+        .catch(err => {
+          console.log(err);
+          alert("Error loading complaints");
+        });
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+</head>
+<body>
+
+  <h2>Assign Complaint</h2>
+
+  <!-- Complaint ID -->
+  <label>Complaint ID:</label><br>
+  <input type="text" id="complaintId" placeholder="Enter Complaint ID"><br><br>
+
+  <!-- Worker Dropdown -->
+  <label>Select Worker:</label><br>
+  <select id="workerSelect">
+    <option value="">Loading workers...</option>
+  </select><br><br>
+
+  <!-- Department -->
+  <label>Department:</label><br>
+  <select id="department">
+    <option value="Electrical">Electrical</option>
+    <option value="Plumbing">Plumbing</option>
+    <option value="Cleaning">Cleaning</option>
+  </select><br><br>
+
+  <!-- Assign Button -->
+  <button onclick="assignComplaint()">Assign Complaint</button>
+
+  <p id="message"></p>
+
+  <script>
+    // 🔥 STEP 1: Load workers from backend
+    fetch("http://localhost:5000/workers")
+      .then(res => res.json())
+      .then(data => {
+
+        const select = document.getElementById("workerSelect");
+        select.innerHTML = ""; // clear old options
+
+        data.forEach(worker => {
+
+          const option = document.createElement("option");
+
+          option.value = worker._id;      // 🔥 workerId
+          option.textContent = worker.name;
+
+          select.appendChild(option);     // add to dropdown
+
+        });
+
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+
+
+    // 🔥 STEP 2: Assign complaint
+    function assignComplaint() {
+
+      const complaintId = document.getElementById("complaintId").value;
+      const workerId = document.getElementById("workerSelect").value;
+      const department = document.getElementById("department").value;
+
+      //const userId = localStorage.getItem("userId"); // adminId
+
+      fetch(`http://localhost:5000/admin/assign/${complaintId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          userId:'69c2df843b031e0b4d3fc702',
+          workerId: workerId,
+          department: department
+        })
+      })
+      .then(res => res.text())
+      .then(msg => {
+        document.getElementById("message").innerText = msg;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    }
+  </script>
+
+</body>
+</html>

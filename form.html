@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Complaint</title>
+</head>
+<body>
+
+  <h2>Add Complaint</h2>
+
+  <form action="http://localhost:5000/complaints" method="POST" enctype="multipart/form-data">
+    
+    <input type="text" name="title" placeholder="Title" required><br><br>
+
+    <input type="text" name="description" placeholder="Description" required><br><br>
+
+    <input type="number" name="priority" placeholder="Priority"><br><br>
+
+    <input type="text" name="student" placeholder="Your Name"><br><br>
+    <input type="number" name="userId" placeholder="user Id"><br><br>
+
+    <input type="file" name="image"><br><br>
+
+    <button type="submit">Submit Complaint</button>
+
+  </form>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test Complaint APIs</title>
+</head>
+<body>
+ 
+
+
+<body>
+
+	 <h2>Register User</h2>
+  <form action="http://localhost:5000/register" method="POST">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <label for="role">Role:</label><br>
+    <select id="role" name="role" required>
+      <option value="">Select Role</option>
+      <option value="student">Student</option>
+      <option value="admin">Admin</option>
+      <option value="worker">Worker</option>
+    </select><br><br>
+
+    <button type="submit">Register</button>
+  </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>Login Test Form</h2>
+  <form action="http://localhost:5000/login" method="POST">
+    <label for="email">Email:</label><br>
+    <input type="text" id="email" name="email" required><br><br>
+
+    <label for="password">Password:</label><br>
+    <input type="text" id="password" name="password" required><br><br>
+
+    <button type="submit">Login</button>
+  </form>
+</body>
+
+ 
+ 
+	<h2>Add Complaint</h2>
+  <form action="http://localhost:5000/complaints" method="POST" enctype="multipart/form-data">
+    <label>Title:</label><br>
+    <input type="text" name="title" required><br><br>
+
+    <label>Description:</label><br>
+    <textarea name="description" required></textarea><br><br>
+
+    <label>Priority:</label><br>
+    <select name="priority">
+      <option value="3">High</option>
+      <option value="2">Medium</option>
+      <option value="1">Low</option>
+    </select><br><br>
+
+    <label>Student Name:</label><br>
+    <input type="text" name="student" required><br><br>
+
+    <input type="hidden" name="userId" value="69c7675dc60a3b17882eb1db">
+    <label>Image:</label><br>
+    <input type="file" name="image"><br><br>
+
+    <button type="submit">Add Complaint</button>
+  </form>
+  
+  <script>
+ /* Exactly! That’s the point — the student never needs to know or type the userId. The frontend handles it automatically once the student logs in. Let me explain step by step:
+
+How it should work
+Student logs in
+Student enters email + password in login form.
+
+Backend responds with the user object, for example:
+
+{
+  "_id": "645e5aabf3d2c8f3a12c4567",
+  "name": "Mahaboob",
+  "email": "mahaboob@gmail.com",
+  "role": "student"
+}
+Frontend stores this _id (userId) in memory, session, or localStorage.
+Student fills complaint form
+They enter title, description, priority, etc.
+
+The frontend automatically adds the hidden field userId using the stored login info:
+
+<input type="hidden" name="userId" value="645e5aabf3d2c8f3a12c4567">
+Student doesn’t see or type this ID.
+Submit complaint
+Backend receives userId and stores the complaint linked to that student.
+
+Backend can later find all complaints for that student using:
+
+Complaint.find({ userId: "645e5aabf3d2c8f3a12c4567" });
+
+✅ Summary:
+
+userId is internal to your system.
+Student logs in, and frontend automatically attaches their userId to new complaints.
+Student never manually enters it.*/
+ 
+</script>
+
+
+
+
+
+</body>
+</html>
